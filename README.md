@@ -72,3 +72,12 @@
 ![dbdb1](https://github.com/karpei-taemukan/Fintech/assets/91212680/1f51baf1-7893-4235-adea-f0e2737942a0)
 
 
+# Tech Stack
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2.4-green)
+![Gradle](https://img.shields.io/badge/Gradle-8.7-yellow)
+![MySQL](https://img.shields.io/badge/MySQL-8.0-blue)
+![Spring Security](https://img.shields.io/badge/Spring%20Security-orange)
+![Git](https://img.shields.io/badge/Git-lightgrey)
+![Mailgun](https://img.shields.io/badge/Mailgun-red)
+
+
