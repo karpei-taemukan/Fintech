@@ -74,8 +74,9 @@
 
 
 # ERD :heavy_check_mark:
-	
-![fb](https://github.com/karpei-taemukan/Fintech/assets/91212680/be41d051-46ff-4db2-9ec3-234fd677392f)
+![fbfb](https://github.com/karpei-taemukan/Fintech/assets/91212680/8c66c547-3725-4f5c-bdde-7e8b34ade4df)
+
+
 
 
 
