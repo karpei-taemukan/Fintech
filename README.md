@@ -74,10 +74,11 @@
 
 
 # ERD :heavy_check_mark:
-![fbfb](https://github.com/karpei-taemukan/Fintech/assets/91212680/8c66c547-3725-4f5c-bdde-7e8b34ade4df)
 
 
 
+
+![dbdbdb](https://github.com/karpei-taemukan/Fintech/assets/91212680/6373cf1a-232f-470c-9864-646ea37b1a40)
 
 
 # Tech Stack :heavy_check_mark:
