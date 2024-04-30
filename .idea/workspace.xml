@@ -4,47 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd150fa6-60b1-449b-ab60-56f9e1413021" name="변경" comment="setting complete">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/client/MailgunClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/config/FeignConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/controller/SignInController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/controller/SignUpController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/domain/Account.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/domain/AccountUser.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/domain/BaseEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/domain/SendMailForm.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/domain/SignInForm.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/domain/SignUpAccountForm.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/domain/SignUpUserForm.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/domain/Transaction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/dto/AccountDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/dto/ErrorResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/exception/AccountException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/exception/GlobalExceptionHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/repository/AccountRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/repository/AccountUserRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/repository/TransactionRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/service/SignInService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/service/SignupService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/service/VerifyService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/token/domain/UserType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/token/domain/UserVo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/token/util/Aes256Util.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/type/AccountStatus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/type/ErrorCode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/type/LoginCheck.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/type/TransactionType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+    <list default="true" id="dd150fa6-60b1-449b-ab60-56f9e1413021" name="변경" comment="feat : [001-signUp,signIn]&#10; 1. 사용자에 대한 회원 가입 &#10; 2. 회원 가입 후 mailgun을 통해 인증메일 보내기&#10; 3. 로그인 기능 --&gt; 로그인 후 JWT 토큰 발행&#10; 4. 계좌 가입(로그인을 해서 JWT 토큰 발행 후 계좌 가입 가능)">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/controller/TransactionController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/domain/DepositForm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/service/TransactionService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zerobase/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zerobase/config/filter/JwtFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/config/filter/JwtFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/zerobase/controller/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/controller/AccountController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zerobase/token/config/JwtAuthProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/token/config/JwtAuthProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zerobase/domain/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/domain/Transaction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zerobase/repository/AccountRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/repository/AccountRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zerobase/repository/AccountUserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/repository/AccountUserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zerobase/service/SignupService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/service/SignupService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zerobase/type/ErrorCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/type/ErrorCode.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -195,13 +165,22 @@
       <option name="project" value="LOCAL" />
       <updated>1713364235832</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="feat : [001-signUp,signIn]&#10; 1. 사용자에 대한 회원 가입 &#10; 2. 회원 가입 후 mailgun을 통해 인증메일 보내기&#10; 3. 로그인 기능 --&gt; 로그인 후 JWT 토큰 발행&#10; 4. 계좌 가입(로그인을 해서 JWT 토큰 발행 후 계좌 가입 가능)">
+      <option name="closed" value="true" />
+      <created>1714399032573</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1714399032573</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first settings" />
     <MESSAGE value="update pull_request_template.md" />
     <MESSAGE value="setting complete" />
-    <option name="LAST_COMMIT_MESSAGE" value="setting complete" />
+    <MESSAGE value="feat : [001-signUp,signIn]&#10; 1. 사용자에 대한 회원 가입 &#10; 2. 회원 가입 후 mailgun을 통해 인증메일 보내기&#10; 3. 로그인 기능 --&gt; 로그인 후 JWT 토큰 발행&#10; 4. 계좌 가입(로그인을 해서 JWT 토큰 발행 후 계좌 가입 가능)" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat : [001-signUp,signIn]&#10; 1. 사용자에 대한 회원 가입 &#10; 2. 회원 가입 후 mailgun을 통해 인증메일 보내기&#10; 3. 로그인 기능 --&gt; 로그인 후 JWT 토큰 발행&#10; 4. 계좌 가입(로그인을 해서 JWT 토큰 발행 후 계좌 가입 가능)" />
   </component>
 </project>

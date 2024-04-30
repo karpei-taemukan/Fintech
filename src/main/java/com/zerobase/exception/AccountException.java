@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.http.HttpStatus;
 
 @Getter
 @Setter
@@ -14,10 +15,12 @@ import lombok.Setter;
 @Builder
 public class AccountException extends RuntimeException{
     private ErrorCode errorCode;
+    private HttpStatus httpStatus;
     private String errorMessage;
 
     public AccountException(ErrorCode errorCode){
         this.errorCode = errorCode;
+        this.httpStatus = errorCode.getHttpStatus();
         this.errorMessage = errorCode.getDescription();
     }
 }

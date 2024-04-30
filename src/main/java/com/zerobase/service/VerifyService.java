@@ -16,21 +16,21 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class VerifyService {
-private final AccountUserRepository accountUserRepository;
+
+  private final AccountUserRepository accountUserRepository;
 
   @Transactional
   public LocalDateTime ChangeUserVerification(Long id, String code) {
     Optional<AccountUser> userOptional = accountUserRepository.findById(id);
 
-    if(userOptional.isPresent()){
-        AccountUser accountUser = userOptional.get();
+    if (userOptional.isPresent()) {
+      AccountUser accountUser = userOptional.get();
 
-        accountUser.setVerificationCode(code);
-        accountUser.setVerifyExpiredAt(LocalDateTime.now().plusDays(1));
+      accountUser.setVerificationCode(code);
+      accountUser.setVerifyExpiredAt(LocalDateTime.now().plusDays(1));
 
-        return accountUser.getVerifyExpiredAt();
-    }
-    else{
+      return accountUser.getVerifyExpiredAt();
+    } else {
       throw new AccountException(ErrorCode.USER_NOT_FOUND);
     }
 
@@ -40,6 +40,6 @@ private final AccountUserRepository accountUserRepository;
     String name = Aes256Util.decrypt(username);
 
     return accountUserRepository.findByName(name)
-        .orElseThrow(()-> new UsernameNotFoundException("Couldn't find user -> " + username));
+        .orElseThrow(() -> new UsernameNotFoundException("Couldn't find user -> " + username));
   }
 }

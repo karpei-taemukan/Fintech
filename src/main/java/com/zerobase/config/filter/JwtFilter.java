@@ -46,11 +46,8 @@ public class JwtFilter extends OncePerRequestFilter {
         String token = request.getHeader(TOKEN_HEADER);
 
         if(!ObjectUtils.isEmpty(token) && token.startsWith(TOKEN_PREFIX)){
-        /*    System.out.println("BEFORE TOKEN "+token);
-            System.out.println("AFTER TOKEN "+token.substring(TOKEN_PREFIX.length()));*/
-
-            System.out.println("TOKEN "+token.substring(TOKEN_PREFIX.length()));
-
+            log.info(String.format("[%s] -> %s", "BEFORE TOKEN", token));
+            log.info(String.format("[%s] -> %s", "AFTER TOKEN", token.substring(TOKEN_PREFIX.length())));
             return token.substring(TOKEN_PREFIX.length());
         }
         return null;

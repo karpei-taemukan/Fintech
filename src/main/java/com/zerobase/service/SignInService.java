@@ -14,11 +14,12 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class SignInService {
+
   private final AccountUserRepository accountUserRepository;
   private final JwtAuthProvider provider;
 
 
-  public Optional<AccountUser> findValidUser(String email, String pw){
+  public Optional<AccountUser> findValidUser(String email, String pw) {
     return accountUserRepository.findByEmail(email).stream().filter(
         accountUser -> accountUser.getAccountPassword().equals(pw) && accountUser.isVerify()
     ).findFirst();
@@ -26,9 +27,11 @@ public class SignInService {
 
 
   public String accountSignIn(SignInForm form) {
+
     AccountUser accountUser = findValidUser(form.getEmail(), form.getPassword())
         .orElseThrow(() -> new AccountException(ErrorCode.LOGIN_CHECK_FAIL));
 
-    return provider.createToken(accountUser.getName(), accountUser.getId(), UserType.USER, form.getEmail());
+    return provider.createToken(accountUser.getName(), accountUser.getId(), UserType.USER,
+        form.getEmail());
   }
 }

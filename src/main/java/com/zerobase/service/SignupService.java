@@ -7,6 +7,7 @@ import com.zerobase.domain.SendMailForm;
 import com.zerobase.domain.SignUpAccountForm;
 import com.zerobase.dto.AccountDto;
 import com.zerobase.exception.AccountException;
+import com.zerobase.exception.RandomCodeException;
 import com.zerobase.repository.AccountRepository;
 import com.zerobase.repository.AccountUserRepository;
 import com.zerobase.domain.SignUpUserForm;
@@ -17,12 +18,14 @@ import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Random;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class SignupService {
 
   private final AccountUserRepository accountUserRepository;
@@ -34,44 +37,6 @@ public class SignupService {
   private final VerifyService verifyService;
 
   private final JwtAuthProvider provider;
-
-
-
-
-  public boolean isEmailExist(String email){
-    return accountUserRepository.findByEmail(email.toLowerCase(Locale.ROOT)).isPresent();
-  }
-
-  private boolean isAccountExist(String accountName) {
-    return accountRepository.findByAccountName(accountName.toLowerCase(Locale.ROOT)).isPresent();
-  }
-
-  public AccountUser signup(SignUpUserForm form){
-    return accountUserRepository.save(AccountUser.from(form));
-  }
-
-
-//----------------------------------------------------------------------------------------
-
-  private String getRandomCode(){
-    return RandomStringUtils.random(10, true, true);
-  }
-
-  private String getVerificationEmailBody(String email, String name, String code){
-    StringBuilder sb = new StringBuilder();
-    return sb.append("Hello ").append(name)
-        .append("! Please Click Link for verification. \n")
-        .append("http://localhost:8080/signUp")
-        .append("/verify/")
-        .append("user")
-        .append("?email=")
-        .append(email)
-        .append("&code=")
-        .append(code)
-        .toString();
-  }
-
-// ----------------------------------------------------------------------------------------
 
   // 계좌 번호 생성기
   public static String generateAccountNumber() {
@@ -90,12 +55,32 @@ public class SignupService {
     return String.format("%d-%02d-%d", firstPart, secondPart, thirdPart);
   }
 
+  public AccountUser signup(SignUpUserForm form) {
+    return accountUserRepository.save(AccountUser.from(form));
+  }
 
-//----------------------------------------------------------------------------------------
+  private String getRandomCode() {
+    return RandomStringUtils.random(10, true, true);
+  }
+
+  private String getVerificationEmailBody(String email, String name, String code) {
+    StringBuilder sb = new StringBuilder();
+    return sb.append("Hello ").append(name)
+        .append("! Please Click Link for verification. \n")
+        .append("http://localhost:8080/signUp")
+        .append("/verify/")
+        .append("user")
+        .append("?email=")
+        .append(email)
+        .append("&code=")
+        .append(code)
+        .toString();
+  }
+
   @Transactional
   public String userSignUp(SignUpUserForm form) {
     // 이미 가입된 이메일이 있는 지 체크
-    if (isEmailExist(form.getEmail())) {
+    if (accountUserRepository.existsByEmail(form.getEmail())) {
       throw new AccountException(ErrorCode.ACCOUNT_ALREADY_EXIST);
     } else {
       AccountUser accountUser = signup(form);
@@ -109,7 +94,7 @@ public class SignupService {
           .text(getVerificationEmailBody(form.getEmail(), form.getName(), code))
           .build();
 
-      System.out.println("EMAIL FORM :"+sendMailForm);
+      log.info(String.format("[%s] -> %s", "EMAIL FORM", sendMailForm));
 
       mailgunClient.sendEmail(sendMailForm);
 
@@ -121,19 +106,19 @@ public class SignupService {
 
   @Transactional
   public void userVerify(String email, String code) {
-    AccountUser accountUser =  accountUserRepository.findByEmail(email)
+    AccountUser accountUser = accountUserRepository.findByEmail(email)
         .orElseThrow(() -> new AccountException(ErrorCode.USER_NOT_FOUND));
 
-    if(!accountUser.getVerificationCode().equals(code)){
-        throw new AccountException(ErrorCode.WRONG_VERIFICATION);
+    if (!accountUser.getVerificationCode().equals(code)) {
+      throw new AccountException(ErrorCode.WRONG_VERIFICATION);
     }
 
-    if(accountUser.isVerify()){
+    if (accountUser.isVerify()) {
       throw new AccountException(ErrorCode.ACCOUNT_ALREADY_EXIST);
     }
 
-    if(accountUser.getVerifyExpiredAt().isBefore(LocalDateTime.now())){
-        throw new AccountException(ErrorCode.EXPIRE_CODE);
+    if (accountUser.getVerifyExpiredAt().isBefore(LocalDateTime.now())) {
+      throw new AccountException(ErrorCode.EXPIRE_CODE);
     }
 
     accountUser.setVerify(true);
@@ -145,38 +130,43 @@ public class SignupService {
     // email 은 unique 하기 때문에 email 로
     // 토큰에 있는 이메일하고 form 의 이메일하고 비교
 
-    if(!provider.getUserVo(token).getEmail().equals(form.getEmail())) {
+    if (!provider.getUserVo(token).getEmail().equals(form.getEmail())) {
       throw new AccountException(ErrorCode.EMAIL_NOT_MATCH);
     }
 
-      /* Account 가 5개 라면
-       * AccountUser 의 이메일로 가입된 Account 가 5개 이다
-       */
+    /* Account 가 5개 라면
+     * AccountUser 의 이메일로 가입된 Account 가 5개 이다
+     */
 
-      AccountUser accountUser = getAccountUser(form.getEmail());
+    AccountUser accountUser = getAccountUser(form.getEmail());
 
-      // 계좌의 갯수가 5개인지 체크
-      validateCreateAccount(accountUser);
+    // 계좌의 갯수가 5개인지 체크
+    validateCreateAccount(accountUser);
 
+    String accountNumber = generateAccountNumber();
 
-      String accountNumber = generateAccountNumber();
+    Integer accountCount = accountRepository.countByAccountNumber(accountNumber);
 
-      return AccountDto.from(
-          accountRepository.save(
-              Account.builder()
-                  .email(form.getEmail())
-                  .name(form.getName())
-                  .accountStatus(AccountStatus.IN_USE)
-                  .accountName(form.getAccountName())
-                  .accountNumber(accountNumber)
-                  .balance(0L)
-                  .accountUser(accountUser)
-                  .build()
-          )
-      );
+    // 생성한 계좌 번호가 이미 있는 경우
+    if (accountCount > 0) {
+      throw new RandomCodeException(ErrorCode.DUPLICATED_RANDOM_CODE);
+    }
+
+    return AccountDto.from(
+        accountRepository.save(
+            Account.builder()
+                .email(form.getEmail())
+                .name(form.getName())
+                .accountStatus(AccountStatus.IN_USE)
+                .accountName(form.getAccountName())
+                .accountNumber(accountNumber)
+                .balance(0L)
+                .accountUser(accountUser)
+                .build()
+        )
+    );
 
   }
-
 
 
   private AccountUser getAccountUser(String email) {
@@ -184,7 +174,7 @@ public class SignupService {
   }
 
   private void validateCreateAccount(AccountUser accountUser) {
-    if(accountRepository.countByEmail(accountUser.getEmail()) == 5){
+    if (accountRepository.countByEmail(accountUser.getEmail()) == 5) {
       throw new AccountException(ErrorCode.ACCOUNT_MAX);
     }
   }
