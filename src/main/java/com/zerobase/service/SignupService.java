@@ -7,7 +7,6 @@ import com.zerobase.domain.SendMailForm;
 import com.zerobase.domain.SignUpAccountForm;
 import com.zerobase.dto.AccountDto;
 import com.zerobase.exception.AccountException;
-import com.zerobase.exception.RandomCodeException;
 import com.zerobase.repository.AccountRepository;
 import com.zerobase.repository.AccountUserRepository;
 import com.zerobase.domain.SignUpUserForm;
@@ -15,7 +14,6 @@ import com.zerobase.token.config.JwtAuthProvider;
 import com.zerobase.type.AccountStatus;
 import com.zerobase.type.ErrorCode;
 import java.time.LocalDateTime;
-import java.util.Locale;
 import java.util.Random;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +37,7 @@ public class SignupService {
   private final JwtAuthProvider provider;
 
   // 계좌 번호 생성기
-  public static String generateAccountNumber() {
+  public String generateAccountNumber() {
     Random random = new Random();
 
     // 첫 번째 6자리 숫자 생성 (100000 이상 999999 이하)
@@ -51,8 +49,16 @@ public class SignupService {
     // 세 번째 6자리 숫자 생성 (100000 이상 999999 이하)
     int thirdPart = 100000 + random.nextInt(900000);
 
+    String accountNumber = String.format("%d-%02d-%d", firstPart, secondPart, thirdPart);
+
+
+    // 생성한 계좌번호가 이미 있는 경우 재귀호출로 계좌 번호 다시 생성
+    if(accountRepository.existsByAccountNumber(accountNumber)){
+       accountNumber = generateAccountNumber();
+    }
+
     // 계좌 번호를 문자열로 조합하여 반환
-    return String.format("%d-%02d-%d", firstPart, secondPart, thirdPart);
+    return accountNumber;
   }
 
   public AccountUser signup(SignUpUserForm form) {
@@ -149,7 +155,7 @@ public class SignupService {
 
     // 생성한 계좌 번호가 이미 있는 경우
     if (accountCount > 0) {
-      throw new RandomCodeException(ErrorCode.DUPLICATED_RANDOM_CODE);
+
     }
 
     return AccountDto.from(

@@ -18,7 +18,7 @@ public enum ErrorCode {
   EMAIL_NOT_MATCH(HttpStatus.BAD_REQUEST,"사용자의 이메일이 다릅니다"),
   ACCOUNT_MAX(HttpStatus.BAD_REQUEST,"계좌는 최대 5개"),
   ACCOUNT_NOT_MATCH(HttpStatus.BAD_REQUEST,"계좌가 일치하지않습니다"),
-  DUPLICATED_RANDOM_CODE(HttpStatus.INTERNAL_SERVER_ERROR, "다시 계좌 가입 요청하세요");
+  ACCOUNT_BALANCE_NOT_ENOUGH(HttpStatus.BAD_REQUEST, "계좌의 잔액이 부족");
 
   private final HttpStatus httpStatus;
   private final String description;
