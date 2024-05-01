@@ -153,11 +153,6 @@ public class SignupService {
 
     Integer accountCount = accountRepository.countByAccountNumber(accountNumber);
 
-    // 생성한 계좌 번호가 이미 있는 경우
-    if (accountCount > 0) {
-
-    }
-
     return AccountDto.from(
         accountRepository.save(
             Account.builder()
