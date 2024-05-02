@@ -7,6 +7,7 @@ import com.zerobase.domain.SendMailForm;
 import com.zerobase.domain.SignUpAccountForm;
 import com.zerobase.dto.AccountDto;
 import com.zerobase.exception.AccountException;
+import com.zerobase.exception.CertificationException;
 import com.zerobase.repository.AccountRepository;
 import com.zerobase.repository.AccountUserRepository;
 import com.zerobase.domain.SignUpUserForm;
@@ -116,7 +117,7 @@ public class SignupService {
         .orElseThrow(() -> new AccountException(ErrorCode.USER_NOT_FOUND));
 
     if (!accountUser.getVerificationCode().equals(code)) {
-      throw new AccountException(ErrorCode.WRONG_VERIFICATION);
+      throw new CertificationException(ErrorCode.WRONG_VERIFICATION);
     }
 
     if (accountUser.isVerify()) {
@@ -124,7 +125,7 @@ public class SignupService {
     }
 
     if (accountUser.getVerifyExpiredAt().isBefore(LocalDateTime.now())) {
-      throw new AccountException(ErrorCode.EXPIRE_CODE);
+      throw new CertificationException(ErrorCode.EXPIRE_CODE);
     }
 
     accountUser.setVerify(true);
@@ -153,10 +154,6 @@ public class SignupService {
 
     Integer accountCount = accountRepository.countByAccountNumber(accountNumber);
 
-    // 생성한 계좌 번호가 이미 있는 경우
-    if (accountCount > 0) {
-
-    }
 
     return AccountDto.from(
         accountRepository.save(
