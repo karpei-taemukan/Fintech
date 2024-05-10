@@ -8,11 +8,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long> {
+
   Integer countByEmail(String email);
 
   Optional<Account> findByEmail(String email);
-
-  Integer countByAccountNumber(String accountNumber);
 
   Optional<Account> findByAccountName(String accountName);
 

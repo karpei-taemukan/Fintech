@@ -22,38 +22,39 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 @EnableMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class SecurityConfig {
-    private final JwtFilter jwtFilter;
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-            .csrf(AbstractHttpConfigurer::disable)
-            .headers(e->e.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))
-            .httpBasic(Customizer.withDefaults())
-            .sessionManagement(httpSecuritySessionManagementConfigurer
-                -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(
-                SessionCreationPolicy.STATELESS))
-            .authorizeHttpRequests((auth)
-                -> auth.requestMatchers("*/signUp/**","*/signIn/**","*/verify/**")
-                .permitAll()
-                .anyRequest()
-                .authenticated()
-            )
-            .addFilterBefore(this.jwtFilter, UsernamePasswordAuthenticationFilter.class);
-        return http.build();
+  private final JwtFilter jwtFilter;
 
-    }
+  @Bean
+  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    http
+        .csrf(AbstractHttpConfigurer::disable)
+        .headers(e -> e.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))
+        .httpBasic(Customizer.withDefaults())
+        .sessionManagement(httpSecuritySessionManagementConfigurer
+            -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(
+            SessionCreationPolicy.STATELESS))
+        .authorizeHttpRequests((auth)
+            -> auth.requestMatchers("*/signUp/**", "*/signIn/**", "*/verify/**")
+            .permitAll()
+            .anyRequest()
+            .authenticated()
+        )
+        .addFilterBefore(this.jwtFilter, UsernamePasswordAuthenticationFilter.class);
+    return http.build();
 
-
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().requestMatchers("/signUp/*","/signIn/*");
-    }
+  }
 
 
-    @Bean
-    AuthenticationManager authenticationManager(
-        AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
-    }
+  @Bean
+  public WebSecurityCustomizer webSecurityCustomizer() {
+    return (web) -> web.ignoring().requestMatchers("/signUp/*", "/signIn/*");
+  }
+
+
+  @Bean
+  AuthenticationManager authenticationManager(
+      AuthenticationConfiguration authenticationConfiguration) throws Exception {
+    return authenticationConfiguration.getAuthenticationManager();
+  }
 }

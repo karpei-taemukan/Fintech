@@ -17,14 +17,16 @@ public class GlobalExceptionHandler {
   public ResponseEntity<ErrorResponse> handleAccountUserException(AccountException e) {
     log.warn(
         String.format("[%s][%s] -> %s", e.getHttpStatus(), e.getErrorCode(), e.getErrorMessage()));
-    return ResponseEntity.badRequest().body(new ErrorResponse(e.getErrorCode(), e.getErrorMessage()));
+    return ResponseEntity.badRequest()
+        .body(new ErrorResponse(e.getErrorCode(), e.getErrorMessage()));
   }
 
   @ExceptionHandler(CertificationException.class)
   public ResponseEntity<ErrorResponse> handleCertificationException(CertificationException e) {
     log.warn(
         String.format("[%s][%s] -> %s", e.getHttpStatus(), e.getErrorCode(), e.getErrorMessage()));
-    return ResponseEntity.internalServerError().body(new ErrorResponse(e.getErrorCode(), e.getErrorMessage()));
+    return ResponseEntity.internalServerError()
+        .body(new ErrorResponse(e.getErrorCode(), e.getErrorMessage()));
   }
 
 }

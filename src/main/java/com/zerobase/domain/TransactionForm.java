@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class SignInForm {
+public class TransactionForm {
 
-  private String email;
-  private String password;
+  private String accountName;
+  private Long balance;
 }

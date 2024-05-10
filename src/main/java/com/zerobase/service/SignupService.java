@@ -6,6 +6,7 @@ import com.zerobase.domain.AccountUser;
 import com.zerobase.domain.SendMailForm;
 import com.zerobase.domain.SignUpAccountForm;
 import com.zerobase.dto.AccountDto;
+import com.zerobase.dto.AccountUserDto;
 import com.zerobase.exception.AccountException;
 import com.zerobase.repository.AccountRepository;
 import com.zerobase.repository.AccountUserRepository;
@@ -51,10 +52,9 @@ public class SignupService {
 
     String accountNumber = String.format("%d-%02d-%d", firstPart, secondPart, thirdPart);
 
-
     // 생성한 계좌번호가 이미 있는 경우 재귀호출로 계좌 번호 다시 생성
-    if(accountRepository.existsByAccountNumber(accountNumber)){
-       accountNumber = generateAccountNumber();
+    if (accountRepository.existsByAccountNumber(accountNumber)) {
+      accountNumber = generateAccountNumber();
     }
 
     // 계좌 번호를 문자열로 조합하여 반환
@@ -84,7 +84,7 @@ public class SignupService {
   }
 
   @Transactional
-  public String userSignUp(SignUpUserForm form) {
+  public AccountUserDto userSignUp(SignUpUserForm form) {
     // 이미 가입된 이메일이 있는 지 체크
     if (accountUserRepository.existsByEmail(form.getEmail())) {
       throw new AccountException(ErrorCode.ACCOUNT_ALREADY_EXIST);
@@ -106,7 +106,7 @@ public class SignupService {
 
       verifyService.ChangeUserVerification(accountUser.getId(), code);
 
-      return "회원 가입 성공";
+      return AccountUserDto.from(accountUser);
     }
   }
 
@@ -132,11 +132,10 @@ public class SignupService {
     accountUserRepository.save(accountUser);
   }
 
-  public AccountDto accountSignUp(String token, SignUpAccountForm form) {
+  public AccountDto accountSignUp(String email, SignUpAccountForm form) {
     // email 은 unique 하기 때문에 email 로
     // 토큰에 있는 이메일하고 form 의 이메일하고 비교
-
-    if (!provider.getUserVo(token).getEmail().equals(form.getEmail())) {
+    if (!email.equals(form.getEmail())) {
       throw new AccountException(ErrorCode.EMAIL_NOT_MATCH);
     }
 
@@ -150,13 +149,6 @@ public class SignupService {
     validateCreateAccount(accountUser);
 
     String accountNumber = generateAccountNumber();
-
-    Integer accountCount = accountRepository.countByAccountNumber(accountNumber);
-
-    // 생성한 계좌 번호가 이미 있는 경우
-    if (accountCount > 0) {
-
-    }
 
     return AccountDto.from(
         accountRepository.save(
@@ -175,11 +167,14 @@ public class SignupService {
   }
 
 
-  private AccountUser getAccountUser(String email) {
-    return accountUserRepository.findByEmail(email).get();
+  public AccountUser getAccountUser(String email) {
+    if (accountUserRepository.findByEmail(email).isPresent()) {
+      return accountUserRepository.findByEmail(email).get();
+    }
+    throw new AccountException(ErrorCode.USER_NOT_FOUND);
   }
 
-  private void validateCreateAccount(AccountUser accountUser) {
+  public void validateCreateAccount(AccountUser accountUser) {
     if (accountRepository.countByEmail(accountUser.getEmail()) == 5) {
       throw new AccountException(ErrorCode.ACCOUNT_MAX);
     }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @FeignClient(name = "mailgun", url = "https://api.mailgun.net/v3/")
 @Qualifier("mailgun")
 public interface MailgunClient {
+
   @PostMapping("${spring.mailgun.domain}/messages")
   ResponseEntity<String> sendEmail(@SpringQueryMap SendMailForm sendMailForm);
 

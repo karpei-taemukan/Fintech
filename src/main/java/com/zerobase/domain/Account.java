@@ -28,7 +28,8 @@ import org.hibernate.envers.Audited;
 @AllArgsConstructor
 @Audited
 @AuditOverride(forClass = BaseEntity.class)
-public class Account extends BaseEntity{
+public class Account extends BaseEntity {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;

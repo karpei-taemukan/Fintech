@@ -22,34 +22,37 @@ import java.io.IOException;
 @NonNullApi
 @Slf4j
 public class JwtFilter extends OncePerRequestFilter {
-    public static final String TOKEN_HEADER = "Authorization";
 
-    public static final String TOKEN_PREFIX = "Bearer ";
+  public static final String TOKEN_HEADER = "Authorization";
 
-    private final JwtAuthProvider provider;
+  public static final String TOKEN_PREFIX = "Bearer ";
 
-    @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-            throws ServletException, IOException {
-        String token = getTokenFromRequest(request);
+  private final JwtAuthProvider provider;
 
-        if(StringUtils.hasText(token) && provider.validateToken(token) && provider.getUserVo(token).getUserType().equals("USER")){
-            Authentication authentication = provider.getUserAuthentication(token);
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            log.info(String.format("[%s] -> %s", provider.getUsername(token), request.getRequestURI()));
-        }
+  @Override
+  protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
+      FilterChain filterChain)
+      throws ServletException, IOException {
+    String token = getTokenFromRequest(request);
 
-        filterChain.doFilter(request,response);
+    if (StringUtils.hasText(token) && provider.validateToken(token) && provider.getUserVo(token)
+        .getUserType().equals("USER")) {
+      Authentication authentication = provider.getUserAuthentication(token);
+      SecurityContextHolder.getContext().setAuthentication(authentication);
+      log.info(String.format("[%s] -> %s", provider.getUsername(token), request.getRequestURI()));
     }
 
-    private String getTokenFromRequest(HttpServletRequest request) {
-        String token = request.getHeader(TOKEN_HEADER);
+    filterChain.doFilter(request, response);
+  }
 
-        if(!ObjectUtils.isEmpty(token) && token.startsWith(TOKEN_PREFIX)){
-            log.info(String.format("[%s] -> %s", "BEFORE TOKEN", token));
-            log.info(String.format("[%s] -> %s", "AFTER TOKEN", token.substring(TOKEN_PREFIX.length())));
-            return token.substring(TOKEN_PREFIX.length());
-        }
-        return null;
+  private String getTokenFromRequest(HttpServletRequest request) {
+    String token = request.getHeader(TOKEN_HEADER);
+
+    if (!ObjectUtils.isEmpty(token) && token.startsWith(TOKEN_PREFIX)) {
+      log.info(String.format("[%s] -> %s", "BEFORE TOKEN", token));
+      log.info(String.format("[%s] -> %s", "AFTER TOKEN", token.substring(TOKEN_PREFIX.length())));
+      return token.substring(TOKEN_PREFIX.length());
     }
+    return null;
+  }
 }
