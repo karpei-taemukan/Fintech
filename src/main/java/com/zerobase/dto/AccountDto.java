@@ -19,6 +19,7 @@ public class AccountDto {
   private String name; // 계좌 소유주 이름
   private String accountName; // 계좌 이름
   private String accountNumber;
+  private AccountStatus accountStatus;
   private Long balance;
 
 
@@ -27,6 +28,7 @@ public class AccountDto {
         .email(account.getAccountUser().getEmail())
         .name(account.getAccountUser().getName())
         .accountName(account.getAccountName())
+        .accountStatus(account.getAccountStatus())
         .accountNumber(account.getAccountNumber())
         .balance(account.getBalance())
         .build();

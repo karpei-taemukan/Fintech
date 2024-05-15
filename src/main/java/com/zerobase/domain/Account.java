@@ -1,5 +1,6 @@
 package com.zerobase.domain;
 
+import com.zerobase.dto.AccountDto;
 import com.zerobase.type.AccountStatus;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -52,5 +53,17 @@ public class Account extends BaseEntity {
   @JoinColumn(name = "account_id")
   private AccountUser accountUser;
 
+
+
+  public static AccountDto from(Account account) {
+    return AccountDto.builder()
+        .email(account.getAccountUser().getEmail())
+        .name(account.getAccountUser().getName())
+        .accountName(account.getAccountName())
+        .accountStatus(account.getAccountStatus())
+        .accountNumber(account.getAccountNumber())
+        .balance(account.getBalance())
+        .build();
+  }
 
 }

@@ -8,6 +8,7 @@ import com.zerobase.domain.SignUpAccountForm;
 import com.zerobase.dto.AccountDto;
 import com.zerobase.dto.AccountUserDto;
 import com.zerobase.exception.AccountException;
+import com.zerobase.exception.CertificationException;
 import com.zerobase.repository.AccountRepository;
 import com.zerobase.repository.AccountUserRepository;
 import com.zerobase.domain.SignUpUserForm;
@@ -116,11 +117,11 @@ public class SignupService {
         .orElseThrow(() -> new AccountException(ErrorCode.USER_NOT_FOUND));
 
     if (!accountUser.getVerificationCode().equals(code)) {
-      throw new AccountException(ErrorCode.WRONG_VERIFICATION);
+      throw new CertificationException(ErrorCode.WRONG_VERIFICATION);
     }
 
     if (accountUser.isVerify()) {
-      throw new AccountException(ErrorCode.ACCOUNT_ALREADY_EXIST);
+      throw new CertificationException(ErrorCode.ALREADY_VERIFICATION);
     }
 
     if (accountUser.getVerifyExpiredAt().isBefore(LocalDateTime.now())) {
@@ -132,6 +133,8 @@ public class SignupService {
     accountUserRepository.save(accountUser);
   }
 
+
+  @Transactional
   public AccountDto accountSignUp(String email, SignUpAccountForm form) {
     // email 은 unique 하기 때문에 email 로
     // 토큰에 있는 이메일하고 form 의 이메일하고 비교
@@ -168,10 +171,13 @@ public class SignupService {
 
 
   public AccountUser getAccountUser(String email) {
-    if (accountUserRepository.findByEmail(email).isPresent()) {
+/*    if (accountUserRepository.findByEmail(email).isPresent()) {
       return accountUserRepository.findByEmail(email).get();
     }
-    throw new AccountException(ErrorCode.USER_NOT_FOUND);
+    throw new AccountException(ErrorCode.USER_NOT_FOUND);*/
+
+    return accountUserRepository.findByEmail(email)
+        .orElseThrow(() -> new AccountException(ErrorCode.USER_NOT_FOUND));
   }
 
   public void validateCreateAccount(AccountUser accountUser) {

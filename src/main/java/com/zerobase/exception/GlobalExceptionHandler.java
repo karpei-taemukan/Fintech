@@ -28,5 +28,4 @@ public class GlobalExceptionHandler {
     return ResponseEntity.internalServerError()
         .body(new ErrorResponse(e.getErrorCode(), e.getErrorMessage()));
   }
-
 }

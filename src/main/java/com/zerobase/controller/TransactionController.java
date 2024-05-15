@@ -24,14 +24,17 @@ public class TransactionController {
 
   private final JwtAuthProvider provider;
 
+  private String getEmailFromToken(String token) {
+    token = token.substring(TOKEN_PREFIX.length());
+    return provider.getUserVo(token).getEmail();
+  }
+
   @PostMapping("/deposit")
   private ResponseEntity<AccountDto> depositAccount(
       @RequestBody @Valid TransactionForm form,
       @RequestHeader(name = "Authorization") String token
   ) {
-    token = token.substring(TOKEN_PREFIX.length());
-
-    String email = provider.getUserVo(token).getEmail();
+    String email = getEmailFromToken(token);
 
     return ResponseEntity.ok(transactionService.depositAccount(email, form));
   }
@@ -42,9 +45,7 @@ public class TransactionController {
       @RequestBody @Valid TransactionForm form,
       @RequestHeader(name = "Authorization") String token
   ) {
-    token = token.substring(TOKEN_PREFIX.length());
-
-    String email = provider.getUserVo(token).getEmail();
+    String email = getEmailFromToken(token);
 
     return ResponseEntity.ok(transactionService.withdrawAccount(email, form));
   }
