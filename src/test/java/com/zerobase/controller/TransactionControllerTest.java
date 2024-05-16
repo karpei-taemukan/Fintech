@@ -4,8 +4,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zerobase.config.SecurityConfig;
+import com.zerobase.config.WebConfig;
+import com.zerobase.controller.util.TokenArgumentResolver;
 import com.zerobase.domain.TransactionForm;
 import com.zerobase.dto.AccountDto;
+import com.zerobase.dto.TokenDto;
 import com.zerobase.exception.AccountException;
 import com.zerobase.service.TransactionService;
 import com.zerobase.token.config.JwtAuthProvider;
@@ -35,15 +38,21 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(TransactionController.class)
-@Import({SecurityConfig.class})
+@Import({SecurityConfig.class, WebConfig.class})
 class TransactionControllerTest {
 
   @MockBean
   private TransactionService transactionService;
+
   @MockBean
   private JwtAuthProvider provider;
+
+  @MockBean
+  private TokenArgumentResolver tokenArgumentResolver;
+
   @Autowired
   private MockMvc mockMvc;
+
   @Autowired
   private ObjectMapper objectMapper;
 
@@ -66,9 +75,14 @@ class TransactionControllerTest {
         .signWith(SignatureAlgorithm.HS256, "fintech-secretKey-springBoot")
         .compact();
 
+    TokenDto tokenDto = new TokenDto("abc@gmail.com", "abc");
+
     //given
-    given(provider.getUserVo(anyString()))
-        .willReturn(new UserVo(1L, "abc", "abc@gmail.com", "USER"));
+    given(tokenArgumentResolver.supportsParameter(any()))
+        .willReturn(true);
+
+    given(tokenArgumentResolver.resolveArgument(any(), any(), any(), any()))
+        .willReturn(tokenDto);
 
     given(transactionService.depositAccount(anyString(), any()))
         .willReturn(AccountDto.builder()
@@ -112,9 +126,14 @@ class TransactionControllerTest {
         .signWith(SignatureAlgorithm.HS256, "fintech-secretKey-springBoot")
         .compact();
 
+    TokenDto tokenDto = new TokenDto("abc@gmail.com", "abc");
+
     //given
-    given(provider.getUserVo(anyString()))
-        .willReturn(new UserVo(1L, "abc", "abcabc@gmail.com", "USER"));
+    given(tokenArgumentResolver.supportsParameter(any()))
+        .willReturn(true);
+
+    given(tokenArgumentResolver.resolveArgument(any(), any(), any(), any()))
+        .willReturn(tokenDto);
 
     given(transactionService.depositAccount(anyString(), any()))
         .willThrow(new AccountException(ErrorCode.USER_NOT_FOUND));
@@ -153,9 +172,14 @@ class TransactionControllerTest {
         .signWith(SignatureAlgorithm.HS256, "fintech-secretKey-springBoot")
         .compact();
 
+    TokenDto tokenDto = new TokenDto("abc@gmail.com", "abc");
+
     //given
-    given(provider.getUserVo(anyString()))
-        .willReturn(new UserVo(1L, "abc", "abc@gmail.com", "USER"));
+    given(tokenArgumentResolver.supportsParameter(any()))
+        .willReturn(true);
+
+    given(tokenArgumentResolver.resolveArgument(any(), any(), any(), any()))
+        .willReturn(tokenDto);
 
     given(transactionService.withdrawAccount(anyString(), any()))
         .willReturn(AccountDto.builder()
@@ -199,9 +223,14 @@ class TransactionControllerTest {
         .signWith(SignatureAlgorithm.HS256, "fintech-secretKey-springBoot")
         .compact();
 
+    TokenDto tokenDto = new TokenDto("abc@gmail.com", "abc");
+
     //given
-    given(provider.getUserVo(anyString()))
-        .willReturn(new UserVo(1L, "abc", "abcabc@gmail.com", "USER"));
+    given(tokenArgumentResolver.supportsParameter(any()))
+        .willReturn(true);
+
+    given(tokenArgumentResolver.resolveArgument(any(), any(), any(), any()))
+        .willReturn(tokenDto);
 
     given(transactionService.withdrawAccount(anyString(), any()))
         .willThrow(new AccountException(ErrorCode.USER_NOT_FOUND));

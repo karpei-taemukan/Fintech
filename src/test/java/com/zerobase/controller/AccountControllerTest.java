@@ -10,8 +10,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zerobase.config.SecurityConfig;
+import com.zerobase.config.WebConfig;
+import com.zerobase.controller.util.TokenArgumentResolver;
 import com.zerobase.domain.TransactionForm;
 import com.zerobase.dto.AccountDto;
+import com.zerobase.dto.TokenDto;
 import com.zerobase.exception.AccountException;
 import com.zerobase.service.AccountService;
 import com.zerobase.token.config.JwtAuthProvider;
@@ -38,7 +41,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 @WebMvcTest(AccountController.class)
-@Import({SecurityConfig.class})
+@Import({SecurityConfig.class, WebConfig.class})
 class AccountControllerTest {
 
   @MockBean
@@ -47,8 +50,12 @@ class AccountControllerTest {
   @MockBean
   private JwtAuthProvider provider;
 
+  @MockBean
+  private TokenArgumentResolver tokenArgumentResolver;
+
   @Autowired
   private MockMvc mockMvc;
+
   @Autowired
   private ObjectMapper objectMapper;
 
@@ -78,9 +85,15 @@ class AccountControllerTest {
             AccountStatus.IN_USE, 20000L)
     );
 
+    TokenDto tokenDto = new TokenDto("abc@gmail.com", "abc");
+
     //given
-    given(provider.getUserVo(anyString()))
-        .willReturn(new UserVo(1L, "abc", "abc@gmail.com", "USER"));
+    given(tokenArgumentResolver.supportsParameter(any()))
+        .willReturn(true);
+
+    given(tokenArgumentResolver.resolveArgument(any(), any(), any(), any()))
+        .willReturn(tokenDto);
+
     given(accountService.showAllAccounts(anyString()))
         .willReturn(accounts);
     //when
@@ -125,9 +138,14 @@ class AccountControllerTest {
         .signWith(SignatureAlgorithm.HS256, "fintech-secretKey-springBoot")
         .compact();
 
+    TokenDto tokenDto = new TokenDto("abc@gmail.com", "abc");
+
     //given
-    given(provider.getUserVo(anyString()))
-        .willReturn(new UserVo(1L, "abc", "abc@gmail.com", "USER"));
+    given(tokenArgumentResolver.supportsParameter(any()))
+        .willReturn(true);
+
+    given(tokenArgumentResolver.resolveArgument(any(), any(), any(), any()))
+        .willReturn(tokenDto);
     given(accountService.showAllAccounts(anyString()))
         .willThrow(new AccountException(ErrorCode.USER_NOT_FOUND));
     //when
@@ -160,9 +178,14 @@ class AccountControllerTest {
         .signWith(SignatureAlgorithm.HS256, "fintech-secretKey-springBoot")
         .compact();
 
+    TokenDto tokenDto = new TokenDto("abc@gmail.com", "abc");
+
     //given
-    given(provider.getUserVo(anyString()))
-        .willReturn(new UserVo(1L, "abc", "abc@gmail.com", "USER"));
+    given(tokenArgumentResolver.supportsParameter(any()))
+        .willReturn(true);
+
+    given(tokenArgumentResolver.resolveArgument(any(), any(), any(), any()))
+        .willReturn(tokenDto);
     given(accountService.deleteAccount(anyString(), anyString()))
         .willReturn(AccountDto.builder()
             .email("abc@gmail.com")
@@ -206,9 +229,14 @@ class AccountControllerTest {
         .signWith(SignatureAlgorithm.HS256, "fintech-secretKey-springBoot")
         .compact();
 
+    TokenDto tokenDto = new TokenDto("abc@gmail.com", "abc");
+
     //given
-    given(provider.getUserVo(anyString()))
-        .willReturn(new UserVo(1L, "abc", "abc@gmail.com", "USER"));
+    given(tokenArgumentResolver.supportsParameter(any()))
+        .willReturn(true);
+
+    given(tokenArgumentResolver.resolveArgument(any(), any(), any(), any()))
+        .willReturn(tokenDto);
     given(accountService.deleteAccount(anyString(), anyString()))
         .willThrow(new AccountException(ErrorCode.USER_NOT_FOUND));
     //when

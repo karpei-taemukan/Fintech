@@ -1,6 +1,7 @@
 package com.zerobase.controller;
 
 import com.zerobase.dto.AccountDto;
+import com.zerobase.dto.TokenDto;
 import com.zerobase.service.AccountService;
 import com.zerobase.token.config.JwtAuthProvider;
 import jakarta.validation.Valid;
@@ -21,34 +22,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AccountController {
 
-  public static final String TOKEN_PREFIX = "Bearer ";
   private final AccountService accountService;
-  private final JwtAuthProvider provider;
 
-
-  private String getEmailFromToken(String token) {
-    token = token.substring(TOKEN_PREFIX.length());
-    return provider.getUserVo(token).getEmail();
-  }
-
-  // 유저 이름으로 등록된 모든 계좌 찾기
   @GetMapping("/show")
   private ResponseEntity<List<AccountDto>> showAccounts(
-      @RequestHeader(name = "Authorization") String token
+      TokenDto tokenDto
   ) {
-    String email = getEmailFromToken(token);
-
-    return ResponseEntity.ok(accountService.showAllAccounts(email));
+    return ResponseEntity.ok(accountService.showAllAccounts(tokenDto.getEmail()));
   }
 
 
   @DeleteMapping("/delete")
   private ResponseEntity<AccountDto> deleteAccount(
-      @RequestHeader(name = "Authorization") String token,
-      @RequestParam("accountName") String accountName
-  ){
-    String email = getEmailFromToken(token);
-
-    return ResponseEntity.ok(accountService.deleteAccount(email, accountName));
+      @RequestParam("accountName") String accountName,
+      TokenDto tokenDto
+  ) {
+    return ResponseEntity.ok(accountService.deleteAccount(tokenDto.getEmail(), accountName));
   }
 }

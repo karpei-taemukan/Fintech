@@ -4,21 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd150fa6-60b1-449b-ab60-56f9e1413021" name="변경" comment="feat: [002-test code, transaction]">
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/zerobase/controller/AccountControllerTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/zerobase/service/AccountServiceTest.java" afterDir="false" />
+    <list default="true" id="dd150fa6-60b1-449b-ab60-56f9e1413021" name="변경" comment="feat: [003 - Account Service, testCode]">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/config/WebConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/controller/util/TokenArgumentResolver.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/dto/TokenDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/zerobase/controller/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/controller/AccountController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zerobase/controller/TransactionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/controller/TransactionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zerobase/domain/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/domain/Account.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zerobase/domain/SearchForm.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zerobase/domain/TransactionForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/domain/TransactionForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zerobase/dto/AccountDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/dto/AccountDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zerobase/exception/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/exception/GlobalExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zerobase/repository/AccountRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/repository/AccountRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zerobase/service/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/service/AccountService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zerobase/service/SignupService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/service/SignupService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zerobase/type/ErrorCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/type/ErrorCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zerobase/token/config/JwtAuthProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/token/config/JwtAuthProvider.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,6 +85,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Gradle.'Fintech.test'에 있는 테스트.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountControllerTest.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.AccountControllerTest.failDeleteAccount.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.AccountControllerTest.failShowAccount.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.AccountControllerTest.successDeleteAccount.executor&quot;: &quot;Run&quot;,
@@ -182,7 +175,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AccountServiceTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="AccountControllerTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -195,7 +188,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;com.zerobase.service.AccountServiceTest&quot;" />
+            <option value="&quot;com.zerobase.controller.AccountControllerTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -206,7 +199,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="AccountServiceTest.failDeleteAccount" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="AccountControllerTest.successShowAccount" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -219,7 +212,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;com.zerobase.service.AccountServiceTest.failDeleteAccount&quot;" />
+            <option value="&quot;com.zerobase.controller.AccountControllerTest.successShowAccount&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -230,7 +223,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="TransactionServiceTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="SignInServiceTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -243,7 +236,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;com.zerobase.service.TransactionServiceTest&quot;" />
+            <option value="&quot;com.zerobase.service.SignInServiceTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -279,10 +272,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.'Fintech.test'에 있는 테스트" />
+        <item itemvalue="Gradle.AccountControllerTest" />
+        <item itemvalue="Gradle.AccountControllerTest.successShowAccount" />
         <item itemvalue="애플리케이션.MainApplication" />
-        <item itemvalue="Gradle.TransactionServiceTest" />
-        <item itemvalue="Gradle.AccountServiceTest" />
-        <item itemvalue="Gradle.AccountServiceTest.failDeleteAccount" />
+        <item itemvalue="Gradle.SignInServiceTest" />
       </list>
     </recent_temporary>
   </component>
@@ -319,13 +312,22 @@
       <option name="project" value="LOCAL" />
       <updated>1715360862861</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="feat: [003 - Account Service, testCode]">
+      <option name="closed" value="true" />
+      <created>1715765008901</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1715765008901</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first settings" />
     <MESSAGE value="update pull_request_template.md" />
     <MESSAGE value="feat: [002-test code, transaction]" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: [002-test code, transaction]" />
+    <MESSAGE value="feat: [003 - Account Service, testCode]" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: [003 - Account Service, testCode]" />
   </component>
 </project>
