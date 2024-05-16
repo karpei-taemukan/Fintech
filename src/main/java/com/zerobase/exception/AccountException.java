@@ -13,14 +13,15 @@ import org.springframework.http.HttpStatus;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AccountException extends RuntimeException{
-    private ErrorCode errorCode;
-    private HttpStatus httpStatus;
-    private String errorMessage;
+public class AccountException extends RuntimeException {
 
-    public AccountException(ErrorCode errorCode){
-        this.errorCode = errorCode;
-        this.httpStatus = errorCode.getHttpStatus();
-        this.errorMessage = errorCode.getDescription();
-    }
+  private ErrorCode errorCode;
+  private HttpStatus httpStatus;
+  private String errorMessage;
+
+  public AccountException(ErrorCode errorCode) {
+    this.errorCode = errorCode;
+    this.httpStatus = errorCode.getHttpStatus();
+    this.errorMessage = errorCode.getDescription();
+  }
 }

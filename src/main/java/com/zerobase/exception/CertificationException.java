@@ -14,11 +14,12 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 @Builder
 public class CertificationException extends RuntimeException {
+
   private ErrorCode errorCode;
   private HttpStatus httpStatus;
   private String errorMessage;
 
-  public CertificationException(ErrorCode errorCode){
+  public CertificationException(ErrorCode errorCode) {
     this.errorCode = errorCode;
     this.httpStatus = errorCode.getHttpStatus();
     this.errorMessage = errorCode.getDescription();

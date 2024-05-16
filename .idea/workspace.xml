@@ -4,17 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd150fa6-60b1-449b-ab60-56f9e1413021" name="변경" comment="feat : [001-signUp,signIn]&#10; 1. 사용자에 대한 회원 가입 &#10; 2. 회원 가입 후 mailgun을 통해 인증메일 보내기&#10; 3. 로그인 기능 --&gt; 로그인 후 JWT 토큰 발행&#10; 4. 계좌 가입(로그인을 해서 JWT 토큰 발행 후 계좌 가입 가능)">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/controller/TransactionController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/domain/DepositForm.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/service/TransactionService.java" afterDir="false" />
+    <list default="true" id="dd150fa6-60b1-449b-ab60-56f9e1413021" name="변경" comment="feat: [003 - Account Service, testCode]">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/config/WebConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/controller/util/TokenArgumentResolver.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/dto/TokenDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/zerobase/controller/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/controller/AccountController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zerobase/domain/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/domain/Transaction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zerobase/repository/AccountRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/repository/AccountRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zerobase/repository/AccountUserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/repository/AccountUserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zerobase/service/SignupService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/service/SignupService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zerobase/type/ErrorCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/type/ErrorCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zerobase/token/config/JwtAuthProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/token/config/JwtAuthProvider.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,8 +55,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Enum" />
         <option value="Interface" />
+        <option value="JUnit5 Test Class" />
         <option value="Class" />
       </list>
     </option>
@@ -68,7 +64,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="feature/signup" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -88,18 +84,65 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;Gradle.'Fintech.test'에 있는 테스트.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountControllerTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountControllerTest.failDeleteAccount.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountControllerTest.failShowAccount.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountControllerTest.successDeleteAccount.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountControllerTest.successShowAccount.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountServiceTest.failDeleteAccount.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountServiceTest.failShowAccount.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountServiceTest.successDeleteAccount.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountServiceTest.successShowAccount.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.Fintech [:MainApplication.main()].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Fintech 빌드.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.SignInControllerTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.SignInControllerTest.failLogin.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.SignInControllerTest.successLogin.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.SignInServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.SignInServiceTest.failSignInAccountUser.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.SignInServiceTest.successSignInAccountUser.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.SignUpControllerTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.SignUpControllerTest.failCreateAccount.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.SignUpControllerTest.failCreateAccountUser.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.SignUpControllerTest.successCreateAccount.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.SignUpControllerTest.successCreateAccountUser.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.SignupServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.SignupServiceTest.failCrateAccount.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.SignupServiceTest.failCreateAccountUser.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.SignupServiceTest.successCrateAccountUser.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.SignupServiceTest.successCreateAccount.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TransactionControllerTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TransactionControllerTest.failDepositAccount.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TransactionControllerTest.failDepositAccount_minusBalance.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TransactionControllerTest.failWithdrawAccount.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TransactionControllerTest.successDepositAccount.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TransactionControllerTest.successWithdrawAccount.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TransactionServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TransactionServiceTest.fail.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TransactionServiceTest.failDepositAccount.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TransactionServiceTest.failDepositAccount_balanceMinus.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TransactionServiceTest.failWithdraw_AccountBalanceNotEnough.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TransactionServiceTest.successDepositAccount.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TransactionServiceTest.successWithdrawAccount.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.VerifyServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.VerifyServiceTest.failChangeUserVerification_UserFound.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.VerifyServiceTest.failChangeUserVerification_UserNotFound.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.VerifyServiceTest.failLoadUserByUsername.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.VerifyServiceTest.successChangeUserVerification.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.VerifyServiceTest.successLoadUserByUsername.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.VerifyServiceTest.testChangeUserVerification_UserFound.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/signup&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/transaction&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/pc/IdeaProjects/Fintech&quot;,
     &quot;project.structure.last.edited&quot;: &quot;모듈&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.appearance&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode&quot;,
     &quot;애플리케이션.Fintech.executor&quot;: &quot;Run&quot;,
     &quot;애플리케이션.MainApplication.executor&quot;: &quot;Run&quot;,
     &quot;애플리케이션.com.zerobase.MainApplication (1).executor&quot;: &quot;Run&quot;,
@@ -108,11 +151,17 @@
 }</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
-      <recent name="com.zerobase.client" />
-      <recent name="com.zerobase.exception" />
+      <recent name="com.zerobase.domain" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.zerobase.service" />
+      <recent name="com.zerobase.controller" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Gradle.'Fintech.test'에 있는 테스트">
     <configuration name="MainApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.zerobase.MainApplication" />
       <module name="Fintech.main" />
@@ -126,9 +175,107 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="AccountControllerTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;com.zerobase.controller.AccountControllerTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="AccountControllerTest.successShowAccount" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;com.zerobase.controller.AccountControllerTest.successShowAccount&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="SignInServiceTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;com.zerobase.service.SignInServiceTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="'Fintech.test'에 있는 테스트" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.'Fintech.test'에 있는 테스트" />
+        <item itemvalue="Gradle.AccountControllerTest" />
+        <item itemvalue="Gradle.AccountControllerTest.successShowAccount" />
         <item itemvalue="애플리케이션.MainApplication" />
+        <item itemvalue="Gradle.SignInServiceTest" />
       </list>
     </recent_temporary>
   </component>
@@ -157,21 +304,21 @@
       <option name="project" value="LOCAL" />
       <updated>1713362679264</updated>
     </task>
-    <task id="LOCAL-00003" summary="setting complete">
+    <task id="LOCAL-00003" summary="feat: [002-test code, transaction]">
       <option name="closed" value="true" />
-      <created>1713364235832</created>
+      <created>1715360862861</created>
       <option name="number" value="00003" />
       <option name="presentableId" value="LOCAL-00003" />
       <option name="project" value="LOCAL" />
-      <updated>1713364235832</updated>
+      <updated>1715360862861</updated>
     </task>
-    <task id="LOCAL-00004" summary="feat : [001-signUp,signIn]&#10; 1. 사용자에 대한 회원 가입 &#10; 2. 회원 가입 후 mailgun을 통해 인증메일 보내기&#10; 3. 로그인 기능 --&gt; 로그인 후 JWT 토큰 발행&#10; 4. 계좌 가입(로그인을 해서 JWT 토큰 발행 후 계좌 가입 가능)">
+    <task id="LOCAL-00004" summary="feat: [003 - Account Service, testCode]">
       <option name="closed" value="true" />
-      <created>1714399032573</created>
+      <created>1715765008901</created>
       <option name="number" value="00004" />
       <option name="presentableId" value="LOCAL-00004" />
       <option name="project" value="LOCAL" />
-      <updated>1714399032573</updated>
+      <updated>1715765008901</updated>
     </task>
     <option name="localTasksCounter" value="5" />
     <servers />
@@ -179,8 +326,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first settings" />
     <MESSAGE value="update pull_request_template.md" />
-    <MESSAGE value="setting complete" />
-    <MESSAGE value="feat : [001-signUp,signIn]&#10; 1. 사용자에 대한 회원 가입 &#10; 2. 회원 가입 후 mailgun을 통해 인증메일 보내기&#10; 3. 로그인 기능 --&gt; 로그인 후 JWT 토큰 발행&#10; 4. 계좌 가입(로그인을 해서 JWT 토큰 발행 후 계좌 가입 가능)" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat : [001-signUp,signIn]&#10; 1. 사용자에 대한 회원 가입 &#10; 2. 회원 가입 후 mailgun을 통해 인증메일 보내기&#10; 3. 로그인 기능 --&gt; 로그인 후 JWT 토큰 발행&#10; 4. 계좌 가입(로그인을 해서 JWT 토큰 발행 후 계좌 가입 가능)" />
+    <MESSAGE value="feat: [002-test code, transaction]" />
+    <MESSAGE value="feat: [003 - Account Service, testCode]" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: [003 - Account Service, testCode]" />
   </component>
 </project>

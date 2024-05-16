@@ -16,12 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class SignInController {
 
   private final SignInService signInService;
+
   // 사용자 계정 로그인
   // 토큰 발행
   @PostMapping("/accountUser")
   private ResponseEntity<String> signInUser(
       @RequestBody @Valid SignInForm form
-  ){
+  ) {
     return ResponseEntity.ok(signInService.accountSignIn(form));
   }
 

@@ -21,7 +21,8 @@ import org.hibernate.envers.AuditOverride;
 @NoArgsConstructor
 @Builder
 @AuditOverride(forClass = BaseEntity.class)
-public class Transaction extends BaseEntity{
+public class Transaction extends BaseEntity {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;

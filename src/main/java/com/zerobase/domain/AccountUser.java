@@ -79,7 +79,6 @@ public class AccountUser extends BaseEntity implements UserDetails {
   }
 
 
-
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
     return Collections.singleton(new SimpleGrantedAuthority(this.role));

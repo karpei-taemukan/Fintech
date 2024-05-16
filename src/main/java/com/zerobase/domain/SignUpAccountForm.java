@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class SignUpAccountForm {
+
   private String email;
   private String name; // 사용자 이름
   private String accountName; // 계좌 이름
