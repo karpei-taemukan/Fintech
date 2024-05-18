@@ -7,6 +7,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -34,6 +35,8 @@ public class Transaction extends BaseEntity {
   private Long beforeTransaction;
 
   private Long afterTransaction;
+
+  private LocalDate date;
 
   @Enumerated(EnumType.STRING)
   private TransactionType transactionType; //  송금 / 인출 구분
