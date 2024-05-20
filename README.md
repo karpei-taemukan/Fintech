@@ -2,9 +2,13 @@
 
   - 간단한 계좌 시스템 만들기 --> 계좌 송금과 계좌 CRUD 등 계좌 API를 구현 
 
+<br><br>
+
 # 프로젝트 구조 :heavy_check_mark:
 	
   ![qwe](https://github.com/karpei-taemukan/Fintech/assets/91212680/453c468c-27f7-4ffa-87c4-e4e80f11c672)
+
+<br><br>
 
 # 프로젝트 기능 및 설계 :heavy_check_mark:
 
@@ -68,6 +72,7 @@
 - 송금 이력 조회
 
     - 한 이메일로 최대 5개의 계좌가 가입할 수 있다 --> 각각의 계좌에 대해 송금이력을 구분하는 게 불가 --> 거래내역DB에 계좌 별칭 추가 --> 계좌 별칭으로 각각의 계좌에 대한 송금이력 조회 가능  
+<br><br>
       
 # Trouble Shooting    
    - 헤더에 토큰을 넣고 요청을 했을 때 발생한 에러
@@ -115,14 +120,14 @@
 	 given(provider.getUserVo(anyString()))
      	   .willReturn(new UserVo(1L, "abc", "abc@gmail.com", "USER"));
 	
- 
+ <br><br>
 # ERD :heavy_check_mark:
 
 
 ![fdb](https://github.com/karpei-taemukan/Fintech/assets/91212680/9b67c8c5-e274-4e2d-9fd9-0b3ef99fcfaa)
 
 
-
+<br><br>
 
 # Tech Stack :heavy_check_mark:
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2.4-green)
