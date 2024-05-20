@@ -69,9 +69,53 @@
 
     - 한 이메일로 최대 5개의 계좌가 가입할 수 있다 --> 각각의 계좌에 대해 송금이력을 구분하는 게 불가 --> 거래내역DB에 계좌 별칭 추가 --> 계좌 별칭으로 각각의 계좌에 대한 송금이력 조회 가능  
       
-    
+# Trouble Shooting    
+   - 헤더에 토큰을 넣고 요청을 했을 때 발생한 에러
+     
+      ``` com.fasterxml.jackson.core.jsonparseexception: illegal character ((ctrl-char, code 5)): only regular white space (\r, \n, \t) is allowed between tokens ```
+	
+ - 에러가 발생한 이유:
+	- 토큰를 파싱할때 Bearer 를 substring 을 안해서 발생했던 에러
+	- 토큰을 파싱할때 토큰 정보를 저장할 클래스의 필드와 토큰 정보를 서로 매핑이 안된 경우에 발생
+	<hr>
+   
+  - POSTMAN 401Unauthorized 에러
+    - 에러가 발생한 이유:
+		- 요청하는 URI가 컨트롤러에 있는 URI 와 일치하지 않아 발생한 에러
+   		-  security Configuration 관련 파일의 requestMatchers에 요청 URI가 없어서 발생한 에러 
+<hr>
+
+ - @MockBean 으로 등록한 메소드를 사용하려면 반드 메소드에 맞는 리턴값을 설정한다  
+
+``` java.lang.NullPointerException: Cannot invoke "com.zerobase.token.domain.UserVo.getEmail()" because the return value of "com.zerobase.token.config.JwtAuthProvider.getUserVo(String)" is null ```
+
+	잘못된 사례
+
+	given(provider.getUserVo(anyString()).getEmail())  
+       		 .willReturn("abc@gmail.com");   
+
+	모범 사례
+
+ 	given(provider.getUserVo(anyString()))
+        	.willReturn(new UserVo(1L, "abc", "abc@gmail.com", "USER"));	
+<hr>
 
 
+- @MockBean 으로 등록한 컴포넌트안 메소드를 사용하려면 given() 안에 들어가는 메소드의 매개변수를 any(), anyString(), anyLong()과 같은 매개변수로 전달한다 
+
+``` jakarta.servlet.ServletException: Request processing failed: java.lang.NullPointerException: Cannot invoke "com.zerobase.token.domain.UserVo.getEmail()" because the return value of "com.zerobase.token.config.JwtAuthProvider.getUserVo(String)" is null ```
+
+	잘못된 사례
+
+	given(provider.getUserVo(token))
+     	   .willReturn(new UserVo(1L, "abc", "abc@gmail.com", "USER"));
+
+	모범 사례
+
+	 given(provider.getUserVo(anyString()))
+     	   .willReturn(new UserVo(1L, "abc", "abc@gmail.com", "USER"));
+	
+ 
 # ERD :heavy_check_mark:
 
 
