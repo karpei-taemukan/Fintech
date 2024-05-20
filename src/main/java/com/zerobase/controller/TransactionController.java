@@ -22,7 +22,7 @@ public class TransactionController {
   private final TransactionService transactionService;
 
   @PostMapping("/deposit")
-  private ResponseEntity<AccountDto> depositAccount(
+  public ResponseEntity<AccountDto> depositAccount(
       @RequestBody @Valid TransactionForm form,
       TokenDto tokenDto
   ) {
@@ -31,7 +31,7 @@ public class TransactionController {
 
 
   @PostMapping("/withdraw")
-  private ResponseEntity<AccountDto> withdrawAccount(
+  public ResponseEntity<AccountDto> withdrawAccount(
       @RequestBody @Valid TransactionForm form,
       TokenDto tokenDto
   ) {

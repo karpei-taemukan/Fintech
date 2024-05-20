@@ -18,7 +18,8 @@
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="4d85ad17-c4e7-4b9a-b65e-80fede7ca534">
       <console name="Connection" type="STANDARD" schema="" session="Main"><![CDATA[create database fintech;
-alter table account drop foreign key FK3h9t1ijj5sog64jgq1x2oj0i9;]]></console>
+drop database fintech;
+alter table fintech.account drop foreign key FK3h9t1ijj5sog64jgq1x2oj0i9]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">

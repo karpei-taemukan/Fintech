@@ -15,6 +15,7 @@ import com.zerobase.domain.SignUpUserForm;
 import com.zerobase.token.config.JwtAuthProvider;
 import com.zerobase.type.AccountStatus;
 import com.zerobase.type.ErrorCode;
+import com.zerobase.type.LoginCheck;
 import java.time.LocalDateTime;
 import java.util.Random;
 import lombok.RequiredArgsConstructor;
@@ -91,25 +92,24 @@ public class SignupService {
       throw new AccountException(ErrorCode.ACCOUNT_ALREADY_EXIST);
     } else {
       AccountUser accountUser = signup(form);
+        String code = getRandomCode();
 
-      String code = getRandomCode();
+        SendMailForm sendMailForm = SendMailForm.builder()
+            .from("zerobase-Auth@email.com")
+            .to(form.getEmail())
+            .subject("Verification Email")
+            .text(getVerificationEmailBody(form.getEmail(), form.getName(), code))
+            .build();
 
-      SendMailForm sendMailForm = SendMailForm.builder()
-          .from("zerobase-Auth@email.com")
-          .to(form.getEmail())
-          .subject("Verification Email")
-          .text(getVerificationEmailBody(form.getEmail(), form.getName(), code))
-          .build();
+        log.info(String.format("[%s] -> %s", "EMAIL FORM", sendMailForm));
 
-      log.info(String.format("[%s] -> %s", "EMAIL FORM", sendMailForm));
+        mailgunClient.sendEmail(sendMailForm);
 
-      mailgunClient.sendEmail(sendMailForm);
+        verifyService.ChangeUserVerification(accountUser.getId(), code);
 
-      verifyService.ChangeUserVerification(accountUser.getId(), code);
-
-      return AccountUserDto.from(accountUser);
+        return AccountUserDto.from(accountUser);
+      }
     }
-  }
 
   @Transactional
   public void userVerify(String email, String code) {

@@ -10,6 +10,7 @@ import com.zerobase.repository.AccountUserRepository;
 import com.zerobase.repository.TransactionRepository;
 import com.zerobase.type.ErrorCode;
 import com.zerobase.type.TransactionType;
+import java.time.LocalDate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,13 +51,14 @@ public class TransactionService {
             .accountName(account.getAccountName())
             .beforeTransaction(beforeTransaction)
             .afterTransaction(afterTransaction)
+            .date(LocalDate.now())
             .transactionType(TransactionType.DEPOSIT)
             .build());
 
     return AccountDto.from(account);
   }
 
-
+  @Transactional
   public AccountDto withdrawAccount(String email, TransactionForm form) {
     // 이메일 체크
     if (!accountUserRepository.existsByEmail(email)) {
@@ -87,6 +89,7 @@ public class TransactionService {
             .accountName(account.getAccountName())
             .beforeTransaction(beforeTransaction)
             .afterTransaction(afterTransaction)
+            .date(LocalDate.now())
             .transactionType(TransactionType.WITHDRAW)
             .build());
 

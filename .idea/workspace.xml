@@ -5,12 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dd150fa6-60b1-449b-ab60-56f9e1413021" name="변경" comment="feat: [003 - Account Service, testCode]">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/config/WebConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/controller/util/TokenArgumentResolver.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/dto/TokenDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/aop/AccountLockAop.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/controller/TransactionHistoryController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/dto/TransactionDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/service/TransactionHistoryService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/zerobase/controller/TransactionHistoryControllerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/zerobase/service/TransactionHistoryServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zerobase/controller/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/controller/AccountController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zerobase/token/config/JwtAuthProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/token/config/JwtAuthProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zerobase/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/MainApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zerobase/controller/TransactionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/controller/TransactionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zerobase/domain/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/domain/Transaction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zerobase/repository/AccountRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/repository/AccountRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zerobase/repository/TransactionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/repository/TransactionRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zerobase/service/SignupService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/service/SignupService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zerobase/service/TransactionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zerobase/service/TransactionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +75,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="feature/signup" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -118,6 +129,11 @@
     &quot;Gradle.TransactionControllerTest.failWithdrawAccount.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.TransactionControllerTest.successDepositAccount.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.TransactionControllerTest.successWithdrawAccount.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TransactionHistoryControllerTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TransactionHistoryControllerTest.failTransactionHistory.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TransactionHistoryControllerTest.successTransactionHistory.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TransactionHistoryServiceTest.failTransactionHistory.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TransactionHistoryServiceTest.successTransactionHistory.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.TransactionServiceTest.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.TransactionServiceTest.fail.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.TransactionServiceTest.failDepositAccount.executor&quot;: &quot;Run&quot;,
@@ -136,7 +152,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/transaction&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/LockAndHistory&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/pc/IdeaProjects/Fintech&quot;,
     &quot;project.structure.last.edited&quot;: &quot;모듈&quot;,
@@ -151,6 +167,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.zerobase.type" />
       <recent name="com.zerobase.domain" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
@@ -161,7 +178,7 @@
       <recent name="com.zerobase.controller" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.'Fintech.test'에 있는 테스트">
+  <component name="RunManager" selected="애플리케이션.MainApplication">
     <configuration name="MainApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.zerobase.MainApplication" />
       <module name="Fintech.main" />
@@ -175,7 +192,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AccountControllerTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="SignUpControllerTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -188,7 +205,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;com.zerobase.controller.AccountControllerTest&quot;" />
+            <option value="&quot;com.zerobase.controller.SignUpControllerTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -199,7 +216,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="AccountControllerTest.successShowAccount" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="TransactionHistoryServiceTest.failTransactionHistory" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -212,7 +229,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;com.zerobase.controller.AccountControllerTest.successShowAccount&quot;" />
+            <option value="&quot;com.zerobase.service.TransactionHistoryServiceTest.failTransactionHistory&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -223,7 +240,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="SignInServiceTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="TransactionHistoryServiceTest.successTransactionHistory" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -236,7 +253,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;com.zerobase.service.SignInServiceTest&quot;" />
+            <option value="&quot;com.zerobase.service.TransactionHistoryServiceTest.successTransactionHistory&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -272,10 +289,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.'Fintech.test'에 있는 테스트" />
-        <item itemvalue="Gradle.AccountControllerTest" />
-        <item itemvalue="Gradle.AccountControllerTest.successShowAccount" />
+        <item itemvalue="Gradle.SignUpControllerTest" />
         <item itemvalue="애플리케이션.MainApplication" />
-        <item itemvalue="Gradle.SignInServiceTest" />
+        <item itemvalue="Gradle.TransactionHistoryServiceTest.failTransactionHistory" />
+        <item itemvalue="Gradle.TransactionHistoryServiceTest.successTransactionHistory" />
       </list>
     </recent_temporary>
   </component>
