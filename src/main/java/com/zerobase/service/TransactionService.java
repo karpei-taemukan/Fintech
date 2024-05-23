@@ -39,7 +39,8 @@ public class TransactionService {
     Long beforeTransaction = account.getBalance();
 
     // 돈 넣기
-    account.setBalance(account.getBalance() + form.getBalance());
+    //account.setBalance(account.getBalance() + form.getBalance());
+      account.deposit(form.getBalance());
 
     // 거래후 금액
     Long afterTransaction = account.getBalance();
@@ -68,16 +69,13 @@ public class TransactionService {
     Account account = accountRepository.findByAccountName(form.getAccountName())
         .orElseThrow(() -> new AccountException(ErrorCode.ACCOUNT_NOT_FOUND));
 
-    // 출금금액 <= 계좌 금액 이 조건 만족 해야함
-    if (form.getBalance() > account.getBalance()) {
-      throw new AccountException(ErrorCode.ACCOUNT_BALANCE_NOT_ENOUGH);
-    }
 
     // 거래전 금액
     Long beforeTransaction = account.getBalance();
 
-    // 돈 넣기
-    account.setBalance(account.getBalance() - form.getBalance());
+    // 돈 빼기
+    //account.setBalance(account.getBalance() - form.getBalance());
+    account.withdraw(form.getBalance());
 
     // 거래후 금액
     Long afterTransaction = account.getBalance();

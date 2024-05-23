@@ -17,7 +17,7 @@ public class GlobalExceptionHandler {
   public ResponseEntity<ErrorResponse> handleAccountUserException(AccountException e) {
     log.warn(
         String.format("[%s][%s] -> %s", e.getHttpStatus(), e.getErrorCode(), e.getErrorMessage()));
-    return ResponseEntity.badRequest()
+    return ResponseEntity.status(e.getHttpStatus())
         .body(new ErrorResponse(e.getErrorCode(), e.getErrorMessage()));
   }
 
@@ -25,7 +25,7 @@ public class GlobalExceptionHandler {
   public ResponseEntity<ErrorResponse> handleCertificationException(CertificationException e) {
     log.warn(
         String.format("[%s][%s] -> %s", e.getHttpStatus(), e.getErrorCode(), e.getErrorMessage()));
-    return ResponseEntity.internalServerError()
+    return ResponseEntity.status(e.getHttpStatus())
         .body(new ErrorResponse(e.getErrorCode(), e.getErrorMessage()));
   }
 }

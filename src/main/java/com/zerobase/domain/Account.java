@@ -1,7 +1,9 @@
 package com.zerobase.domain;
 
 import com.zerobase.dto.AccountDto;
+import com.zerobase.exception.AccountException;
 import com.zerobase.type.AccountStatus;
+import com.zerobase.type.ErrorCode;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -66,4 +68,27 @@ public class Account extends BaseEntity {
         .build();
   }
 
+
+  public void deposit(long balance){
+    // 음수일 경우
+    if(balance < 0){
+      throw new AccountException(ErrorCode.INVALID_REQUEST_BALANCE);
+    }
+    this.balance += balance;
+  }
+
+
+  public void withdraw(long balance){
+    // 출금금액 <= 계좌 금액 이 조건 만족 해야함
+    if (balance > this.balance) {
+      throw new AccountException(ErrorCode.ACCOUNT_BALANCE_NOT_ENOUGH);
+    }
+
+    // 음수일 경우
+    if(balance < 0){
+      throw new AccountException(ErrorCode.INVALID_REQUEST_BALANCE);
+    }
+
+    this.balance -= balance;
+  }
 }

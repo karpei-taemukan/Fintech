@@ -19,7 +19,8 @@ public enum ErrorCode {
   ACCOUNT_MAX(HttpStatus.BAD_REQUEST, "계좌는 최대 5개"),
   ACCOUNT_NOT_MATCH(HttpStatus.BAD_REQUEST, "계좌가 일치하지않습니다"),
   ACCOUNT_BALANCE_NOT_ENOUGH(HttpStatus.BAD_REQUEST, "계좌의 잔액이 부족"),
-  BALANCE_EXISTS(HttpStatus.BAD_REQUEST, "계좌에 잔액 존재");
+  BALANCE_EXISTS(HttpStatus.BAD_REQUEST, "계좌에 잔액 존재"),
+  INVALID_REQUEST_BALANCE(HttpStatus.BAD_REQUEST,"잘못된 금액입니다");
 
   private final HttpStatus httpStatus;
   private final String description;
